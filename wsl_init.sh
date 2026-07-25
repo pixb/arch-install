@@ -124,26 +124,6 @@ pacman_install fastfetch
 pacman_install fd
 pacman_install lazygit
 
-if [ -e $HOME/.sdkman/bin/sdkman-init.sh ]; then
-  echo -e "${COLOR_GREEN}sdkman is installed${COLOR_NC}"
-  source "$HOME/.sdkman/bin/sdkman-init.sh"
-else
-  echo -e "${COLOR_YELLOW}sdkman not init, init...${COLOR_NC}"
-  curl -s "https://get.sdkman.io" | bash
-fi
-
-if command -v java &>/dev/null; then
-  echo -e "${COLOR_GREEN}java is installed${COLOR_NC}"
-else
-  echo -e "${COLOR_YELLOW}java is not install${COLOR_NC}"
-  if command -v sdk &>/dev/null; then
-    echo -e "${COLOR_GREEN}sdkman is installed${COLOR_GREEN}"
-    sdk install java 11.0.23-tem
-  else
-    echo -e "${COLOR_YELLOW}sdknam is not install${COLOR_NC}"
-  fi
-fi
-
 if [ -d "${HOME}"/.pyenv ]; then
   echo -e "${COLOR_GREEN}pyenv is installed${COLOR_NC}"
   export PATH=$HOME/.pyenv/bin:$PATH
@@ -204,15 +184,22 @@ pacman_install docker-compose
 if [ -d /etc/docker ]; then
   sudo mkdir -p /etc/docker
 fi
-if ! grep -q cf-workers /etc/docker/daemon.json; then
-  sudo tee -a /etc/docker/daemon.json <<EOF
-{
-  "registry-mirrors": ["https://cf-workers-docker-io-682.pages.dev/"]
-}
-EOF
-fi
+# if ! grep -q cf-workers /etc/docker/daemon.json; then
+#   sudo tee -a /etc/docker/daemon.json <<EOF
+# {
+#   "registry-mirrors": ["https://cf-workers-docker-io-682.pages.dev/"]
+# }
+# EOF
+# fi
 
 sudo systemctl enable docker
 sudo systemctl start docker
 pacman_install lsof
 pacman_install nethogs
+
+### config cuda
+if command -v nvidia-smi >/dev/null 2>&1; then
+  echo -e "${COLOR_GREEN}nvidia-smi is exists.${COLOR_NC}"
+  pacman_install cuda
+  pacman_install nvidia-container-toolkit
+fi
