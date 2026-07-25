@@ -124,6 +124,7 @@ pacman_install highlight
 pacman_install p7zip
 pacman_install rsync
 pacman_install cifs-utils
+pacman_install smbclient
 
 if pacman -Qi ranger >/dev/null 2>&1; then
   echo -e "${COLOR_GREEN}ranger is intalled${COLOR_NC}"
