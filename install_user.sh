@@ -138,7 +138,7 @@ if [ ! -d "${HOME}/.config" ]; then
   mkdir -p "${HOME}/.config"
 fi
 
-ln -sf "${HOME}/dev/install-arch/config/ranger" "${HOME}/.config/ranger"
+ln -sf "${HOME}/dev/arch-install/config/ranger" "${HOME}/.config/ranger"
 
 if [ -d "${HOME}"/dev/linux-demo ]; then
   echo -e "${COLOR_GREEN}${HOME}/dev/linux-demo is exist${COLOR_NC}"
@@ -180,7 +180,7 @@ pacman_install usbutils
 pacman_install rust
 
 if [ ! -d $HOME/.tmux ]; then
-  bash $HOME/dev/install-arch/tmux/config_tmux.sh
+  bash $HOME/dev/arch-install/tmux/config_tmux.sh
 fi
 
 pacman_install bc
