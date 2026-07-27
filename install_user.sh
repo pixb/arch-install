@@ -199,10 +199,16 @@ pacman_install docker-compose
 if [ ! -d /etc/docker ]; then
   sudo mkdir -p /etc/docker
 fi
-if ! grep -q cf-workers /etc/docker/daemon.json; then
+if ! -e /etc/docker/daemon.json; then
   sudo tee -a /etc/docker/daemon.json <<EOF
 {
-  "registry-mirrors": ["https://cf-workers-docker-io-682.pages.dev/"]
+    "registry-mirrors": [
+        "https://docker.1panel.live",
+        "https://docker.m.daocloud.io",
+        "https://hub.rat.dev",
+        "https://docker.mirrors.sjtug.sjtu.edu.cn",
+        "https://docker.mirrors.tuna.tsinghua.edu.cn"
+    ]
 }
 EOF
 fi
